@@ -1,4 +1,4 @@
-package com.example.notificationchat
+package com.marslan.notificationchat
 
 import org.junit.Test
 
