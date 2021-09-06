@@ -4,17 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.marslan.notificationchat.room.tables.EntityMessage
+import com.marslan.notificationchat.room.tables.EntityUser
 
-@Database(entities = [EntityNotification::class],version = 1)
-abstract class RoomDB : RoomDatabase() {
+@Database(entities = [EntityMessage::class, EntityUser::class],version = 1)
+abstract class ChatDB : RoomDatabase() {
 
-    abstract fun notificationDao(): RoomDao
+    abstract fun chatDao(): ChatDao
 
     companion object {
         @Volatile
-        private var INSTANCE: RoomDB? = null
+        private var INSTANCE: ChatDB? = null
 
-        fun getDatabase(context: Context): RoomDB {
+        fun getDatabase(context: Context): ChatDB {
             val temp = INSTANCE
             if(temp != null){
                 return temp
@@ -22,8 +24,8 @@ abstract class RoomDB : RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    RoomDB::class.java,
-                    "notification"
+                    ChatDB::class.java,
+                    "chat.db"
                 ).build()
                 INSTANCE = instance
                 return instance

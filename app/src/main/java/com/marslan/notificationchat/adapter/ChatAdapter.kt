@@ -5,13 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.marslan.notificationchat.databinding.ItemMessageBinding
-import com.marslan.notificationchat.room.EntityNotification
-import org.json.JSONObject
+import com.marslan.notificationchat.room.tables.EntityMessage
 
-class MainAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ChatAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object{
-        private var submitList: List<EntityNotification> = listOf()
+        private var submitList: List<EntityMessage> = listOf()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -24,7 +23,7 @@ class MainAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     override fun getItemCount() = submitList.size
     @SuppressLint("NotifyDataSetChanged")
-    fun setSubmitList(list: List<EntityNotification>){
+    fun setSubmitList(list: List<EntityMessage>){
         submitList = list
         notifyDataSetChanged()
     }
@@ -32,7 +31,7 @@ class MainAdapter():RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     inner class MessageViewHolder(private val binding: ItemMessageBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(position: Int){
             val message = submitList[position]
-            binding.messageText.text = message.body
+            binding.messageText.text = message.text
         }
     }
 }
